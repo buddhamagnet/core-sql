@@ -124,8 +124,15 @@ func MustOpen(driverName, dsn string) *DB {
 
 // OpenMigration will open a migration instance.
 func OpenMigration(driverName, dsn, sourceURL string) (*migrate.Migrate, error) {
+	log.Printf("OpenMigration: driver %s dsn %s sourceURL %s\n", driverName, dsn, sourceURL)
+
 	dsn = fmt.Sprintf("%s://%s", driverName, dsn)
+
+	log.Printf("OpenMigration: dsn %s\n", dsn)
+
 	migration, err := migrate.New(sourceURL, dsn)
+
+	log.Printf("OpenMigration: migration %#v\n", migration)
 	if err != nil {
 		return nil, err
 	}
@@ -143,6 +150,7 @@ func MustOpenMigration(driverName, dsn, sourceURL string) *migrate.Migrate {
 
 // OpenWithMigrations opens a database connection with an associated migration instance.
 func OpenWithMigrations(driverName, dsn, sourceURL string) (*DB, *migrate.Migrate, error) {
+	log.Printf("OpenWithMigrations: driver %s dsn %s sourceURL %s\n", driverName, dsn, sourceURL)
 	migration, err := OpenMigration(driverName, dsn, sourceURL)
 	if err != nil {
 		return nil, nil, err
@@ -157,6 +165,7 @@ func OpenWithMigrations(driverName, dsn, sourceURL string) (*DB, *migrate.Migrat
 // MustOpenWithMigrations opens a database connection with an associated migration instance and crashes if unsuccessful.
 func MustOpenWithMigrations(driverName, dsn, sourceURL string) (*DB, *migrate.Migrate) {
 	database, migrations, err := OpenWithMigrations(driverName, dsn, sourceURL)
+	log.Printf("MustOpenWithMigrations: driver %s dsn %s sourceURL %s\n", driverName, dsn, sourceURL)
 	if err != nil {
 		log.Fatalln(err)
 	}
