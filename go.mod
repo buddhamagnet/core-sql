@@ -1,4 +1,4 @@
-module github.com/LUSHDigital/core-sql
+module github.com/buddhamagnet/core-sql
 
 go 1.13
 

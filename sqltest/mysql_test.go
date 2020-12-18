@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/LUSHDigital/core-sql/sqltest"
+	"github.com/buddhamagnet/core-sql/sqltest"
 )
 
 func TestMySQLTruncator_TruncateTables(t *testing.T) {
