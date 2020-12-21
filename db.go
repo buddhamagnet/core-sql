@@ -134,6 +134,7 @@ func OpenMigration(driverName, dsn, sourceURL string) (*migrate.Migrate, error) 
 
 	log.Printf("OpenMigration: migration %#v\n", migration)
 	if err != nil {
+		log.Printf("OpenMigration failed: %s\n", err.Error())
 		return nil, err
 	}
 	return migration, nil
@@ -153,10 +154,12 @@ func OpenWithMigrations(driverName, dsn, sourceURL string) (*DB, *migrate.Migrat
 	log.Printf("OpenWithMigrations: driver %s dsn %s sourceURL %s\n", driverName, dsn, sourceURL)
 	migration, err := OpenMigration(driverName, dsn, sourceURL)
 	if err != nil {
+		log.Printf("ERROR opening migration: %s", err.Error())
 		return nil, nil, err
 	}
 	database, err := Open(driverName, dsn)
 	if err != nil {
+		log.Printf("ERROR opening database: %s", err.Error())
 		return nil, nil, err
 	}
 	return database, migration, nil
